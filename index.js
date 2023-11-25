@@ -1,10 +1,14 @@
-function hello(name) {
-  console.log(`Hello, ${name}`);
-}
+const EventEmitter = require("events");
+const emitter = new EventEmitter();
 
-function helloName(helloFn) {
-  const name = "Nur";
-  helloFn(name);
-}
+emitter.on("orderPizza", (size, topping) => {
+  console.log(`Bir ${size} pizza pişiriliyor. İçindekiler: ${topping}`);
+});
 
-helloName(hello);
+emitter.on("orderPizza", (size) => {
+  if (size === "large") {
+    console.log(`Ücretsiz içecek servisi.`);
+  }
+});
+
+emitter.emit("orderPizza", "small", "mantar");

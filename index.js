@@ -1,14 +1,27 @@
-const EventEmitter = require("events");
-const emitter = new EventEmitter();
+const PizzaShop = require("./pizza-shop");
+const DrinkMachine = require("./drink-machine");
+const pizzaShop = new PizzaShop();
+const drinkMachine = new DrinkMachine();
 
-emitter.on("orderPizza", (size, topping) => {
-  console.log(`Bir ${size} pizza pişiriliyor. İçindekiler: ${topping}`);
+pizzaShop.on("order", (size, topping) => {
+  console.log(`Sipariş alındı: ${size} pizza, ${topping} ile`);
+  drinkMachine.serveDrink(size);
 });
 
-emitter.on("orderPizza", (size) => {
-  if (size === "large") {
-    console.log(`Ücretsiz içecek servisi.`);
-  }
-});
+pizzaShop.order("large", "sucuk");
+pizzaShop.displayOrderNumber();
 
-emitter.emit("orderPizza", "small", "mantar");
+// const EventEmitter = require("events");
+// const emitter = new EventEmitter();
+
+// emitter.on("orderPizza", (size, topping) => {
+//   console.log(`Bir ${size} pizza pişiriliyor. İçindekiler: ${topping}`);
+// });
+
+// emitter.on("orderPizza", (size) => {
+//   if (size === "large") {
+//     console.log(`Ücretsiz içecek servisi.`);
+//   }
+// });
+
+// emitter.emit("orderPizza", "small", "mantar");

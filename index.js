@@ -1,13 +1,20 @@
 const fs = require("node:fs");
+const zlib = require("node:zlib");
+
+const gzip = zlib.createGzip();
 
 const readableStream = fs.createReadStream("./file.txt", {
   encoding: "utf-8",
   highWaterMark: 2,
 });
 
-const writeableStream = fs.createWriteStream("./file2.txt");
+readableStream.pipe(gzip).pipe(fs.WriteStream("./file2.txt.gz"));
 
-readableStream.on("data", (chunk) => {
-  console.log(chunk);
-  writeableStream.write(chunk);
-});
+// const writeableStream = fs.createWriteStream("./file2.txt");
+
+// readableStream.pipe(writeableStream);
+
+// readableStream.on("data", (chunk) => {
+//   console.log(chunk);
+//   writeableStream.write(chunk);
+// });

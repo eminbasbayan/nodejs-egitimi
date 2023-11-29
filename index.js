@@ -1,4 +1,26 @@
-const fs = require("node:fs");
+const fs = require("node:fs").promises;
+// const fs = require("node:fs/promises");
+
+//! async - await ile fs kullanımı
+
+async function readFile() {
+  try {
+    const data = await fs.readFile("./file.txt", "utf-8");
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+readFile();
+
+//! then - catch ile fs kullanımı
+// console.log("first");
+
+// fs.readFile("./file.txt", "utf-8")
+//   .then((data) => console.log(data))
+//   .catch((error) => console.log(error));
+
+// console.log("second");
 
 //! Senkron dosya okuma
 // const txtFile = fs.readFileSync("./file.txt", "utf-8");
@@ -29,10 +51,10 @@ const fs = require("node:fs");
 // });
 
 //! Dosya içi yazıyı asenkron append ile yazının sonuna istenilen yazıyı ekleme
-fs.writeFile("./file.txt", "Emin Başbayan", { flag: "a" }, (err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Dosya başarıyla yazıldı!");
-  }
-});
+// fs.writeFile("./file.txt", "Emin Başbayan", { flag: "a" }, (err) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log("Dosya başarıyla yazıldı!");
+//   }
+// });

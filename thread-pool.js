@@ -27,14 +27,14 @@ console.log("Bitiş"); */
 
 const crypto = require("node:crypto");
 
+process.env.UV_THREADPOOL_SIZE = 12;
+
 const start = Date.now();
 
-const CALL_LIMIT = 3;
+const CALL_LIMIT = 12;
 
 for (let i = 0; i < CALL_LIMIT; i++) {
   crypto.pbkdf2("password", "salt", 100000, 512, "sha512", () => {
-    console.log(`Süre: ${Date.now() - start} ms`);
+    console.log(`Süre: ${i + 1} ${Date.now() - start} ms`);
   });
 }
-
-console.log("async");

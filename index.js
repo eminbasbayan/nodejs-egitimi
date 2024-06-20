@@ -1,27 +1,30 @@
-const http = require("node:http");
-const fs = require("node:fs");
+// console.log("console.log 1");
+// process.nextTick(()=> {
+//     console.log("process.nextTick");
+// });
+// console.log("console.log 2");
 
-const server = http.createServer((req, res) => {
-  if (req.url === "/") {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Home Page");
-  } else if (req.url === "/products") {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Products Page");
-  } else if (req.url === "/api") {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(
-      JSON.stringify({
-        firstName: "Emin",
-        lastName: "Başbayan",
-      })
+//! *********************************
+
+// Promise.resolve().then(() => console.log("Promise.resolve"));
+// process.nextTick(() => console.log("process.nextTick"));
+
+//! *********************************
+
+process.nextTick(() => console.log("process.nextTick 1"));
+process.nextTick(() => {
+    console.log("process.nextTick 2");
+    process.nextTick(() =>
+        console.log("next tick içinde iç next tick")
     );
-  } else {
-    res.writeHead(404);
-    res.end("Page not found!");
-  }
 });
+process.nextTick(() => console.log("process.nextTick 3"));
 
-server.listen(3000, () => {
-  console.log("Server running on port 3000");
+Promise.resolve().then(() => console.log("Promise.resolve 1"));
+Promise.resolve().then(() => {
+    console.log("Promise.resolve 2");
+    process.nextTick(() =>
+        console.log("Promise then bloğu içinde iç next tick")
+    );
 });
+Promise.resolve().then(() => console.log("Promise.resolve 3"));

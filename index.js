@@ -1,12 +1,19 @@
-// setTimeout(()=> console.log("setTimeout 1"), 0);
-// setTimeout(() => {
-//     console.log("setTimeout 2");
-//     process.nextTick(() =>
-//         console.log("setTimeout içinde iç next tick")
-//     );
-// }, 0);
-// setTimeout(()=> console.log("setTimeout 3"), 0);
+const fs = require('fs');
 
-setTimeout(()=> console.log("setTimeout 1"), 1000);
-setTimeout(()=> console.log("setTimeout 2"), 500);
-setTimeout(()=> console.log("setTimeout 3"), 0);
+fs.readFile(__filename, (err, data) => {
+    console.log('Read File Callback');
+});
+
+process.nextTick(() => {
+    console.log('Next Tick Callback');
+});
+
+Promise.resolve().then(() => {
+    console.log('Promise Callback');
+});
+
+setTimeout(() => {
+    console.log('Set Timeout Callback');
+}, 0);
+
+for (let i = 0; i < 1000000000; i++) {}

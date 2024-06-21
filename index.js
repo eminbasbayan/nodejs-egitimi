@@ -1,30 +1,12 @@
-// console.log("console.log 1");
-// process.nextTick(()=> {
-//     console.log("process.nextTick");
-// });
-// console.log("console.log 2");
+// setTimeout(()=> console.log("setTimeout 1"), 0);
+// setTimeout(() => {
+//     console.log("setTimeout 2");
+//     process.nextTick(() =>
+//         console.log("setTimeout içinde iç next tick")
+//     );
+// }, 0);
+// setTimeout(()=> console.log("setTimeout 3"), 0);
 
-//! *********************************
-
-// Promise.resolve().then(() => console.log("Promise.resolve"));
-// process.nextTick(() => console.log("process.nextTick"));
-
-//! *********************************
-
-process.nextTick(() => console.log("process.nextTick 1"));
-process.nextTick(() => {
-    console.log("process.nextTick 2");
-    process.nextTick(() =>
-        console.log("next tick içinde iç next tick")
-    );
-});
-process.nextTick(() => console.log("process.nextTick 3"));
-
-Promise.resolve().then(() => console.log("Promise.resolve 1"));
-Promise.resolve().then(() => {
-    console.log("Promise.resolve 2");
-    process.nextTick(() =>
-        console.log("Promise then bloğu içinde iç next tick")
-    );
-});
-Promise.resolve().then(() => console.log("Promise.resolve 3"));
+setTimeout(()=> console.log("setTimeout 1"), 1000);
+setTimeout(()=> console.log("setTimeout 2"), 500);
+setTimeout(()=> console.log("setTimeout 3"), 0);

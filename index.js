@@ -1,51 +1,18 @@
-setTimeout(() => console.log("Set Timeout Callback 1"), 0);
-setImmediate(() => console.log("Set Immediate Callback 1"));
+const fs = require("fs");
 
+// Readable stream oluşturuluyor
+const readableStream = fs.createReadStream(__filename);
 
-/* ****************** */
+// Stream kapatılıyor
+readableStream.close();
 
-// setImmediate(() => console.log("Set Immediate Callback 1"));
+// Close event dinleniyor
+readableStream.on("close", () => {
+  console.log("readableStream close event callback");
+});
 
-// setImmediate(() => {
-//   console.log("Set Immediate Callback 2");
-//   process.nextTick(() => {
-//     console.log("Set Immediate 2 içinde Next Tick Callback");
-//   });
-
-//   Promise.resolve().then(() => {
-//     console.log("Set Immediate 2 içinde Promise Callback");
-//   });
-// });
-
-// setImmediate(() => console.log("Set Immediate Callback 3"));
-
-/* ************* */
-
-
-// const fs = require('fs');
-
-// fs.readFile(__filename, () => {
-//     console.log('Read File Callback');
-
-//     setImmediate(() => console.log("ReadFile içinde Set Immediate Callback"));
-
-//     process.nextTick(() => {
-//       console.log("ReadFile içinde Next Tick Callback");
-//     });
-  
-//     Promise.resolve().then(() => {
-//       console.log("ReadFile içinde Promise Callback");
-//     });
-// });
-
-// process.nextTick(() => {
-//     console.log('Next Tick Callback');
-// });
-
-// Promise.resolve().then(() => {
-//     console.log('Promise Callback');
-// });
-
-// setTimeout(() => {
-//     console.log('Set Timeout Callback');
-// }, 0);
+// Diğer asenkron metotlar
+setImmediate(() => console.log("setImmediate 1"));
+setTimeout(() => console.log("setTimeout 1"), 0);
+Promise.resolve().then(() => console.log("Promise.resolve 1"));
+process.nextTick(() => console.log("process.nextTick 1"));

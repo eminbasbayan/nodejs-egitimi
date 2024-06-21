@@ -16,4 +16,7 @@ setTimeout(() => {
     console.log('Set Timeout Callback');
 }, 0);
 
-for (let i = 0; i < 1000000000; i++) {}
+setImmediate(()=> {
+  console.log("Set Immediate Callback");
+})
+
